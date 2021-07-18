@@ -43,3 +43,5 @@ config :linkbox_backend, LinkboxBackendWeb.Endpoint,
 config :linkbox_backend, LinkboxBackend.Guardian,
   issuer: "linkbox-backend",
   secret_key: System.get_env("SECRET_KEY") || raise "environment variable SECRET_KEY is missing."
+
+config :linkbox_backend, :allow_register, (System.get_env("ENABLE_REGISTRATION") || "false") == "true"

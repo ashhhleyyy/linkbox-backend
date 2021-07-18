@@ -33,3 +33,5 @@ import_config "#{Mix.env()}.exs"
 config :linkbox_backend, LinkboxBackend.Guardian,
   issuer: "linkbox-backend",
   secret_key: "dR+IBQ+hF6G4us6Fo/axQUQGJCh+ARxbRWaQzivJDqYkCDAAby54fUbuvlLKb1Hl"
+
+config :linkbox_backend, :allow_register, true

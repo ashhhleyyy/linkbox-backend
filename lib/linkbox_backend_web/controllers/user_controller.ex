@@ -9,10 +9,14 @@ defmodule LinkboxBackendWeb.UserController do
   action_fallback LinkboxBackendWeb.FallbackController
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params),
-         {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
-      conn
-      |> render("jwt.json", jwt: token)
+    if Application.fetch_env!(:linkbox_backend, :allow_register) do
+      with {:ok, %User{} = user} <- Accounts.create_user(user_params),
+           {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+        conn
+        |> render("jwt.json", jwt: token)
+      end
+    else
+      send_resp(conn, :not_found, "")
     end
   end
 
